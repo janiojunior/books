@@ -1,6 +1,6 @@
 package br.unitins.books.model;
 
-public class Usuario {
+public class Usuario implements Cloneable{
 
 	private Integer id;
 	private String nome;
