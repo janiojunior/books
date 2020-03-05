@@ -10,8 +10,6 @@
 	<h1>.:Cadastro de Usuário:.</h1>
 	<h:form>
 		<h:panelGrid columns="2">
-			<h:outputLabel value="Id:" />
-			<h:inputText value="#{usuarioController.usuario.id}" />
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{usuarioController.usuario.nome}" />
 			<h:outputLabel value="Login:" />
@@ -22,10 +20,13 @@
 			<h:inputText value="#{usuarioController.usuario.email}" />	
 		</h:panelGrid>
 		<h:commandButton value="Incluir"
+			disabled="#{usuarioController.usuario.id != null}"
 			actionListener="#{usuarioController.incluir}" />
 		<h:commandButton value="Alterar"
+			disabled="#{usuarioController.usuario.id == null}"
 			actionListener="#{usuarioController.alterar}" />
 		<h:commandButton value="Excluir"
+			disabled="#{usuarioController.usuario.id == null}"
 			actionListener="#{usuarioController.remover}" />
 		<h:commandButton value="Limpar" 
 			actionListener="#{usuarioController.limpar}"/>		
