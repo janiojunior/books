@@ -11,9 +11,9 @@
 	<h:form>
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
-			<h:inputText id="itNome" value="#{usuarioController.usuario.nome}" />
+			<h:inputText value="#{usuarioController.usuario.nome}" />
 			<h:outputLabel value="Data de Nascimento:" />
-			<h:inputText id="itDataNascimento" value="#{usuarioController.usuario.dataNascimento}">
+			<h:inputText value="#{usuarioController.usuario.dataNascimento}">
 				<f:convertDateTime pattern="dd/MM/yyyy" 
 								   type="localDate"/>
 			</h:inputText>
@@ -44,16 +44,12 @@
 			actionListener="#{usuarioController.alterar}" />
 		<h:commandButton value="Excluir"
 			disabled="#{usuarioController.usuario.id == null}"
-			actionListener="#{usuarioController.remover}" >
-			<f:ajax execute="@this" render="@form formDataTable"/>
-		</h:commandButton>
+			actionListener="#{usuarioController.remover}" />
 		<h:commandButton value="Limpar" 
-			actionListener="#{usuarioController.limpar}">
-			<f:ajax execute="@this" render="@form"/>
-		</h:commandButton>		
+			actionListener="#{usuarioController.limpar}"/>		
 	</h:form>
-	<h:form id="formDataTable">
-		<h:dataTable id="dataTable" value="#{usuarioController.listaUsuario}" 
+	<h:form>
+		<h:dataTable value="#{usuarioController.listaUsuario}" 
 					 var="obj">
 			   <h:column>            
 			      <f:facet name="header">Id</f:facet>            
