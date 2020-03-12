@@ -12,12 +12,25 @@
 		<h:panelGrid columns="2">
 			<h:outputLabel value="Nome:" />
 			<h:inputText value="#{usuarioController.usuario.nome}" />
+			<h:outputLabel value="Data de Nascimento:" />
+			<h:inputText value="#{usuarioController.usuario.dataNascimento}">
+				<f:convertDateTime pattern="dd/MM/yyyy" 
+								   type="localDate"/>
+			</h:inputText>
 			<h:outputLabel value="Login:" />
 			<h:inputText value="#{usuarioController.usuario.login}" />
 			<h:outputLabel value="Senha:" />
 			<h:inputSecret value="#{usuarioController.usuario.senha}" />
 			<h:outputLabel value="E-mail:" />
-			<h:inputText value="#{usuarioController.usuario.email}" />	
+			<h:inputText value="#{usuarioController.usuario.email}" />
+			<h:outputLabel value="Tipo de Usuário:" />
+			<h:selectOneMenu 
+				value="#{usuarioController.usuario.tipoUsuario}">
+				<f:selectItems 
+					value="#{usuarioController.listaTipoUsuario}"
+							var="tipo" 
+							itemLabel="#{tipo.label}"/>
+			</h:selectOneMenu>
 		</h:panelGrid>
 		<h:commandButton value="Incluir"
 			disabled="#{usuarioController.usuario.id != null}"
@@ -43,6 +56,14 @@
 			      <h:outputLabel value="#{obj.nome}"/>
 			   </h:column>
 			   <h:column>
+			      <f:facet name="header">Data de Nascimento</f:facet>
+			      <h:outputLabel value="#{obj.dataNascimento}">
+	      				<f:convertDateTime pattern="dd-MM-yyyy" 
+						   type="localDate"/>
+			      
+			      </h:outputLabel>
+			   </h:column>			   
+			   <h:column>
 			      <f:facet name="header">Login</f:facet>
 			      <h:outputLabel value="#{obj.login}"/>
 			   </h:column>
@@ -54,6 +75,10 @@
 			      <f:facet name="header">E-mail</f:facet>
 			      <h:outputLabel value="#{obj.email}"/>
 			   </h:column>	
+			   <h:column>
+			      <f:facet name="header">Tipo de Usuário</f:facet>
+			      <h:outputLabel value="#{obj.tipoUsuario.label}"/>
+			   </h:column>				   
 			   <h:column>
 			      <f:facet name="header">Ação</f:facet>
 			      <h:commandLink value="Editar" 

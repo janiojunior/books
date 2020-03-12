@@ -4,21 +4,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import br.unitins.books.application.Util;
+import br.unitins.books.model.TipoUsuario;
 import br.unitins.books.model.Usuario;
 
 @Named
-@ViewScoped
+@ApplicationScoped
 public class UsuarioController implements Serializable {
 
 	private static final long serialVersionUID = -563227102506849534L;
 
 	private Usuario usuario;
 	private List<Usuario> listaUsuario;
-
+	
 	public void incluir() {
 //		if (getUsuario().getNome().trim().equals("")) {
 //			Util.addErrorMessage("O campo nome deve ser informado.");
@@ -59,7 +60,7 @@ public class UsuarioController implements Serializable {
 	private int proximoId() {
 		int resultado = 0;
 		
-		for (Usuario usuario : listaUsuario) {
+		for (Usuario usuario : getListaUsuario()) {
 			if (usuario.getId() > resultado)
 				resultado = usuario.getId();
 		}
@@ -80,6 +81,10 @@ public class UsuarioController implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+	
+	public TipoUsuario[] getListaTipoUsuario() {
+		return TipoUsuario.values();
 	}
 
 }
