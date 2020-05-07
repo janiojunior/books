@@ -21,19 +21,15 @@ public class UsuarioController implements Serializable {
 	private List<Usuario> listaUsuario;
 	
 	public void incluir() {
-//		if (getUsuario().getNome().trim().equals("")) {
-//			Util.addErrorMessage("O campo nome deve ser informado.");
-//			return;
-//		}
-	if (getUsuario().getNome().isBlank()) {
-		Util.addErrorMessage("O campo nome deve ser informado.");
-		return;
-	}
-
+		if (getUsuario().getNome().isBlank()) {
+			Util.addErrorMessage("O campo nome deve ser informado.");
+			return;
+		}
 			
 		getUsuario().setId(proximoId());
 		getListaUsuario().add(getUsuario());
 		limpar();
+		Util.addInfoMessage("Inclusão realizada com sucesso.");
  	}
 
 	public void alterar() {
@@ -42,11 +38,13 @@ public class UsuarioController implements Serializable {
 		// substituindo o objeto da lista pelo indice
 		listaUsuario.set(index, getUsuario());
 		limpar();
+		Util.addInfoMessage("Alteração realizada com sucesso.");
 	}
 
 	public void remover() {
 		getListaUsuario().remove(getUsuario());
 		limpar();
+		Util.addInfoMessage("Remoção realizada com sucesso.");
 	}
 	
 	public void editar(Usuario usu) {

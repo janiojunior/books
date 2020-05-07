@@ -2,13 +2,27 @@ package br.unitins.books.model;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
+
 public class Usuario extends Entity<Usuario> {
 
 	private String nome;
+	
+	@Past(message = "A data não pode estar no futuro.")
 	private LocalDate dataNascimento;
+	
+	@NotBlank(message = "O login deve ser informado.")
 	private String login;
+	
 	private String senha;
+	
+	@Email(message= "E-mail inválido.")
+	@NotEmpty(message = "O E-mail deve ser informado.")
 	private String email;
+	
 	private TipoUsuario tipoUsuario;
 
 	public String getNome() {
