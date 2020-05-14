@@ -9,26 +9,11 @@ import java.time.LocalDate;
 public class TesteBanco {
 	public static void main(String[] args) {
 		
-		Connection conn = null;
-		try {
-			// registrando o driver do postgres
-			Class.forName("org.postgresql.Driver");
-			// estabelecendo uma conexao com o banco
-			conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/booksdb", "topicos1", "123456");
-			// obrigando a trabalhar com commit e rollback
-			conn.setAutoCommit(false);
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("Erro ao registrar o driver do postgres.");
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println("Erro ao conectar no banco de dados.");
-			e.printStackTrace();
-		}
+		Connection conn = getConnection();
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("INSERT INTO usuario ");
-		sql.append("	(nome, login, senha, datanascimento, email, tipousuario) ");
+		sql.append("	(nomes, login, senha, datanascimento, email, tipousuario) ");
 		sql.append("VALUES ");
 		sql.append("	( ? , ? , ? , ? , ? , ? ) ");
 		
@@ -48,6 +33,7 @@ public class TesteBanco {
 
 			System.out.println("Inclusão realizada com sucesso.");
 		} catch (SQLException e) {
+			e.printStackTrace();
 			try {
 				conn.rollback();
 			} catch (SQLException e1) {
@@ -67,9 +53,26 @@ public class TesteBanco {
 			}
 		}
 		
+	}
 
-		
-		
+	private static Connection getConnection() {
+		Connection conn = null;
+		try {
+			// registrando o driver do postgres
+			Class.forName("org.postgresql.Driver");
+			// estabelecendo uma conexao com o banco
+			conn = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/booksdb", "topicos1", "123456");
+			// obrigando a trabalhar com commit e rollback
+			conn.setAutoCommit(false);
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("Erro ao registrar o driver do postgres.");
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("Erro ao conectar no banco de dados.");
+			e.printStackTrace();
+		}
+		return conn;
 	}
 
 }
