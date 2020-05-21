@@ -21,37 +21,37 @@
 					id="itNome" 
 					required="true"
 					requiredMessage="Esse campo não pode ser nulo."
-					value="#{usuarioController.usuario.nome}" />
+					value="#{usuarioController.entity.nome}" />
 				<h:message for="itNome" style="color:red"/>
 			</h:panelGroup>
 			
 			<h:outputLabel value="Data de Nascimento:" />
 			<h:panelGroup>
-				<h:inputText id="itDataNascimento" value="#{usuarioController.usuario.dataNascimento}">
+				<h:inputText id="itDataNascimento" value="#{usuarioController.entity.dataNascimento}">
 					<f:convertDateTime pattern="dd/MM/yyyy" 
 									   type="localDate"/>
 				</h:inputText>
 				<h:message for="itDataNascimento" style="color:red"/>
 			</h:panelGroup>
 			<h:outputLabel value="Login:" />
-			<h:inputText value="#{usuarioController.usuario.login}" />
+			<h:inputText value="#{usuarioController.entity.login}" />
 			
 			<h:outputLabel value="Senha:" />
 			<h:panelGroup>
 				<h:inputSecret 
 					id="isSenha"
-					value="#{usuarioController.usuario.senha}" 
+					value="#{usuarioController.entity.senha}" 
 					required="true"
 					requiredMessage="Esse campo não pode ser nulo."/>
 				<h:message for="isSenha" style="color:red"/>	
  			</h:panelGroup>
 				
 			<h:outputLabel value="E-mail:" />
-			<h:inputText value="#{usuarioController.usuario.email}" />
+			<h:inputText value="#{usuarioController.entity.email}" />
 			
 			<h:outputLabel value="Tipo de Usuário:" />
 			<h:selectOneMenu 
-				value="#{usuarioController.usuario.tipoUsuario}">
+				value="#{usuarioController.entity.tipoUsuario}">
 				<f:selectItems 
 					value="#{usuarioController.listaTipoUsuario}"
 							var="tipo" 
@@ -60,13 +60,13 @@
 		
 		</h:panelGrid>
 		<h:commandButton value="Incluir"
-			disabled="#{usuarioController.usuario.id != null}"
+			disabled="#{usuarioController.entity.id != null}"
 			actionListener="#{usuarioController.incluir}" />
 		<h:commandButton value="Alterar"
-			disabled="#{usuarioController.usuario.id == null}"
+			disabled="#{usuarioController.entity.id == null}"
 			actionListener="#{usuarioController.alterar}" />
 		<h:commandButton value="Excluir"
-			disabled="#{usuarioController.usuario.id == null}"
+			disabled="#{usuarioController.entity.id == null}"
 			actionListener="#{usuarioController.remover}" >
 			<f:ajax execute="@this" render="@form formDataTable"/>
 		</h:commandButton>

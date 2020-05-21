@@ -7,31 +7,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.unitins.books.model.TipoUsuario;
-import br.unitins.books.model.Usuario;
+import br.unitins.books.model.Livro;
 
-public class UsuarioDAO extends DAO<Usuario> {
+public class LivroDAO extends DAO<Livro> {
 	
-	public boolean create (Usuario usuario) {
+	public boolean create (Livro livro) {
 		
 		boolean retorno = false;
 		Connection conn = getConnection();
 		
 		StringBuffer sql = new StringBuffer();
-		sql.append("INSERT INTO usuario ");
-		sql.append("	(nome, login, senha, datanascimento, email, tipousuario) ");
+		sql.append("INSERT INTO livro ");
+		sql.append("	(descricao, isbn, preco, estoque) ");
 		sql.append("VALUES ");
-		sql.append("	( ? , ? , ? , ? , ? , ? ) ");
+		sql.append("	( ? , ? , ? , ? ) ");
 		
 		PreparedStatement stat = null;
 		try {
 			stat = conn.prepareStatement(sql.toString());
-			stat.setString(1, usuario.getNome());
-			stat.setString(2, usuario.getLogin());
-			stat.setString(3, usuario.getSenha());
-			stat.setDate(4, java.sql.Date.valueOf(usuario.getDataNascimento()));
-			stat.setString(5, usuario.getEmail());
-			stat.setInt(6, usuario.getTipoUsuario().getId());
+			stat.setString(1, livro.getDescricao());
+			stat.setString(2, livro.getIsbn());
+			stat.setFloat(3, livro.getPreco());
+			stat.setInt(4, livro.getEstoque());
 			
 			stat.execute();
 			
@@ -51,26 +48,24 @@ public class UsuarioDAO extends DAO<Usuario> {
 		return retorno;
 	}
 
-	public boolean update(Usuario usuario) {
+	public boolean update(Livro livro) {
 		boolean retorno = false;
 		Connection conn = getConnection();
 		
 		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE usuario ");
-		sql.append("	SET nome=?, login=?, senha=?, datanascimento=?, email=?, tipousuario=? ");
+		sql.append("UPDATE livro ");
+		sql.append("	SET descricao=?, isbn=?, preco=?, estoque=? ");
 		sql.append("WHERE ");
 		sql.append("	id = ? ");
 		
 		PreparedStatement stat = null;
 		try {
 			stat = conn.prepareStatement(sql.toString());
-			stat.setString(1, usuario.getNome());
-			stat.setString(2, usuario.getLogin());
-			stat.setString(3, usuario.getSenha());
-			stat.setDate(4, java.sql.Date.valueOf(usuario.getDataNascimento()));
-			stat.setString(5, usuario.getEmail());
-			stat.setInt(6, usuario.getTipoUsuario().getId());
-			stat.setInt(7, usuario.getId());
+			stat.setString(1, livro.getDescricao());
+			stat.setString(2, livro.getIsbn());
+			stat.setFloat(3, livro.getPreco());
+			stat.setInt(4, livro.getEstoque());
+			stat.setInt(5, livro.getId());
 			
 			stat.execute();
 			
@@ -96,7 +91,7 @@ public class UsuarioDAO extends DAO<Usuario> {
 		Connection conn = getConnection();
 		
 		StringBuffer sql = new StringBuffer();
-		sql.append("DELETE FROM usuario ");
+		sql.append("DELETE FROM livro ");
 		sql.append("WHERE ");
 		sql.append("	id = ? ");
 		
@@ -123,15 +118,15 @@ public class UsuarioDAO extends DAO<Usuario> {
 		return retorno;
 	}
 
-	public List<Usuario> findAll() {
-		List<Usuario> listaUsuario = new ArrayList<Usuario>();
+	public List<Livro> findAll() {
+		List<Livro> listaLivro = new ArrayList<Livro>();
 		Connection conn = getConnection();
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT ");
-		sql.append(" 	id, nome, login, senha, datanascimento, email, tipousuario ");
+		sql.append(" 	id, descricao, isbn, preco, estoque ");
 		sql.append("FROM ");
-		sql.append("	usuario ");
+		sql.append("	livro ");
 		
 		PreparedStatement stat = null;
 		try {
@@ -139,19 +134,17 @@ public class UsuarioDAO extends DAO<Usuario> {
 			
 			ResultSet rs = stat.executeQuery();
 			
-			Usuario usuario = null;
+			Livro livro = null;
 			
 			while(rs.next()) {
-				usuario = new Usuario();
-				usuario.setId(rs.getInt("id"));
-				usuario.setNome(rs.getString("nome"));
-				usuario.setLogin(rs.getString("login"));
-				usuario.setSenha(rs.getString("senha"));
-				usuario.setDataNascimento(rs.getDate("datanascimento").toLocalDate());
-				usuario.setEmail(rs.getString("email"));
-				usuario.setTipoUsuario(TipoUsuario.valueOf(rs.getInt("tipousuario")));
+				livro = new Livro();
+				livro.setId(rs.getInt("id"));
+				livro.setDescricao(rs.getString("descricao"));
+				livro.setIsbn(rs.getString("isbn"));
+				livro.setPreco(rs.getFloat("preco"));
+				livro.setEstoque(rs.getInt("estoque"));
 				
-				listaUsuario.add(usuario);
+				listaLivro.add(livro);
 			}
 			
 		} catch (SQLException e) {
@@ -161,18 +154,18 @@ public class UsuarioDAO extends DAO<Usuario> {
 			closeStatement(stat);
 			closeConnection(conn);
 		}
-		return listaUsuario;
+		return listaLivro;
 	}
 	
-	public Usuario findById(int id) {
-		Usuario usuario = null;
+	public Livro findById(int id) {
+		Livro livro = null;
 		Connection conn = getConnection();
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT ");
-		sql.append(" 	id, nome, login, senha, datanascimento, email, tipousuario ");
+		sql.append(" 	id, descricao, isbn, preco, estoque ");
 		sql.append("FROM ");
-		sql.append("	usuario ");
+		sql.append("	livro ");
 		sql.append("WHERE ");
 		sql.append("	id = ? ");
 
@@ -185,14 +178,12 @@ public class UsuarioDAO extends DAO<Usuario> {
 			ResultSet rs = stat.executeQuery();
 			
 			while(rs.next()) {
-				usuario = new Usuario();
-				usuario.setId(rs.getInt("id"));
-				usuario.setNome(rs.getString("nome"));
-				usuario.setLogin(rs.getString("login"));
-				usuario.setSenha(rs.getString("senha"));
-				usuario.setDataNascimento(rs.getDate("datanascimento").toLocalDate());
-				usuario.setEmail(rs.getString("email"));
-				usuario.setTipoUsuario(TipoUsuario.valueOf(rs.getInt("tipousuario")));
+				livro = new Livro();
+				livro.setId(rs.getInt("id"));
+				livro.setDescricao(rs.getString("descricao"));
+				livro.setIsbn(rs.getString("isbn"));
+				livro.setPreco(rs.getFloat("preco"));
+				livro.setEstoque(rs.getInt("estoque"));
 			}
 			
 		} catch (SQLException e) {
@@ -202,7 +193,7 @@ public class UsuarioDAO extends DAO<Usuario> {
 			closeStatement(stat);
 			closeConnection(conn);
 		}
-		return usuario;
+		return livro;
 	}
 
 }
