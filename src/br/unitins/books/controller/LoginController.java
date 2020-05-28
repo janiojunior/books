@@ -3,27 +3,39 @@ package br.unitins.books.controller;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import br.unitins.books.application.Util;
+import br.unitins.books.dao.UsuarioDAO;
+import br.unitins.books.model.Usuario;
+
 @Named
 @RequestScoped
 public class LoginController {
 
-	private String login;
-	private String senha;
-
-	public String getLogin() {
-		return login;
+	private Usuario usuario;
+	
+	public String logar() {
+		UsuarioDAO dao = new UsuarioDAO();
+		Usuario usuario = dao.verificarLoginSenha(getUsuario().getLogin(),
+				Util.hashSHA256(getUsuario().getSenha()));
+		
+		if (usuario != null)
+			return "usuario.xhtml?faces-redirect=true";
+		Util.addErrorMessage("Login ou Senha inválido.");
+		return "";
+	}
+	
+	public void limpar() {
+		usuario = null;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public Usuario getUsuario() {
+		if (usuario == null)
+			usuario = new Usuario();
+		return usuario;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

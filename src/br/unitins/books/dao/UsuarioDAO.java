@@ -204,5 +204,48 @@ public class UsuarioDAO extends DAO<Usuario> {
 		}
 		return usuario;
 	}
+	
+	public Usuario verificarLoginSenha(String login, String senha) {
+		Usuario usuario = null;
+		Connection conn = getConnection();
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT ");
+		sql.append(" 	id, nome, login, senha, datanascimento, email, tipousuario ");
+		sql.append("FROM ");
+		sql.append("	usuario ");
+		sql.append("WHERE ");
+		sql.append("	login = ? ");
+		sql.append("	AND senha = ? ");
+		
+		PreparedStatement stat = null;
+		try {
+			stat = conn.prepareStatement(sql.toString());
+			stat.setString(1, login);
+			stat.setString(2, senha);
+			
+			ResultSet rs = stat.executeQuery();
+			
+			while(rs.next()) {
+				usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setLogin(rs.getString("login"));
+				usuario.setSenha(rs.getString("senha"));
+				usuario.setDataNascimento(rs.getDate("datanascimento").toLocalDate());
+				usuario.setEmail(rs.getString("email"));
+				usuario.setTipoUsuario(TipoUsuario.valueOf(rs.getInt("tipousuario")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			rollback(conn);
+		} finally {
+			closeStatement(stat);
+			closeConnection(conn);
+		}
+		return usuario;
+	}
+
 
 }

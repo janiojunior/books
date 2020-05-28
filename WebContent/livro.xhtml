@@ -65,36 +65,5 @@
 			<f:ajax execute="@this" render="@form"/>
 		</h:commandButton>		
 	</h:form>
-	<h:form id="formDataTable">
-		<h:dataTable id="dataTable" value="#{livroController.listaLivro}" 
-					 var="obj">
-			   <h:column>            
-			      <f:facet name="header">Id</f:facet>            
-			      <h:outputLabel value="#{obj.id}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">Descrição</f:facet>
-			      <h:outputLabel value="#{obj.descricao}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">Preço</f:facet>
-			      <h:outputLabel value="#{obj.preco}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">ISBN</f:facet>
-			      <h:outputLabel value="#{obj.isbn}"/>
-			   </h:column>
-			   <h:column>
-			      <f:facet name="header">Estoque</f:facet>
-			      <h:outputLabel value="#{obj.estoque}"/>
-			   </h:column>
-			   
-			   <h:column>
-			      <f:facet name="header">Ação</f:facet>
-			      <h:commandLink value="Editar" 
-			      		actionListener="#{livroController.editar(obj)}"/>
-			   </h:column>		   
-		</h:dataTable>
-	</h:form>
 </h:body>
 </html>

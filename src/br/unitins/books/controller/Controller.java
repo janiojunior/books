@@ -1,11 +1,15 @@
 package br.unitins.books.controller;
 
+import java.io.Serializable;
+
 import br.unitins.books.application.Util;
 import br.unitins.books.dao.DAO;
 import br.unitins.books.model.Entity;
 
-public abstract class Controller <T extends Entity<T>> {
+public abstract class Controller <T extends Entity<T>> implements Serializable {
 
+	private static final long serialVersionUID = -2022582742025295921L;
+	
 	protected T entity = null;
 	protected DAO<T> dao = null;
 	

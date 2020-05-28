@@ -51,6 +51,11 @@ public class UsuarioController extends Controller<Usuario> implements Serializab
 			Util.addErrorMessage("O campo nome deve ser informado.");
 			return false;
 		}
+		
+		// gerando o hash da senha
+		String senha = Util.hashSHA256(getEntity().getSenha());
+		getEntity().setSenha(senha);
+		
 		return true;
 	}
 
