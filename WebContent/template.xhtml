@@ -17,10 +17,10 @@
 			<div >
 				<h:form>
 					<h:outputLabel value="Olá #{templateController.usuarioLogado.nome}"
-						rendered="#{templateController.usuarioLogado.id != null}"/>
+						rendered="#{templateController.usuarioLogado != null}"/>
 					<h:commandLink value=" (Sair)"   
 						action="#{templateController.encerrarSessao}"
-						rendered="#{templateController.usuarioLogado.id != null}"
+						rendered="#{templateController.usuarioLogado != null}"
 						style="color:white"/>
 				</h:form>
 			</div>
@@ -29,7 +29,7 @@
 			<ui:insert name="menu">
 				<h1>Menu</h1>
 				<h:form>
-					<h:commandLink value="Login" action="login.xhtml?faces-redirect=true"/> <br/>
+					<h:commandLink value="Login" action="login2.xhtml?faces-redirect=true"/> <br/>
 					<h:commandLink value="Cadastro de Usuário" action="usuario.xhtml?faces-redirect=true"/> <br/>
 					<h:commandLink value="Cadastro de Livro" action="consultalivro.xhtml?faces-redirect=true"/> <br/>
 					<h:commandLink value="Venda de Livro"/> <br/>
