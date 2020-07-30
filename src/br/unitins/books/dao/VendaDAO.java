@@ -42,13 +42,19 @@ public class VendaDAO extends DAO<Venda> {
 			rs.next();
 			venda.setId(rs.getInt("id"));
 			// inserindo os itens de venda
-			// compartilhando a conexao para ficar na mesma transacao
+			
 			ItemVendaDAO dao = new ItemVendaDAO();
 			for (ItemVenda itemVenda : venda.getListaItemVenda()) {
 				// informando quem eh o pai da crianca
 				itemVenda.setVenda(venda);
 				// salvando no banco de dados
-				dao.create(itemVenda);
+//				if (dao.create(itemVenda) == false) {
+//					throw new Exception("Erro ao incluir um item de venda");
+//				}
+				if (createItemVenda(itemVenda, conn) == false) {
+					throw new Exception("Erro ao incluir um item de venda");
+				}				
+				
 			}
 			
 			conn.commit();
@@ -60,9 +66,48 @@ public class VendaDAO extends DAO<Venda> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			rollback(conn);
+		} catch (Exception e) {
+			e.printStackTrace();
+			rollback(conn);
 		} finally {
 			closeStatement(stat);
 			closeConnection(conn);
+		}
+		return retorno;	
+		
+	}
+	
+	// 
+	private boolean createItemVenda(ItemVenda itemVenda, Connection conn) {
+		
+		boolean retorno = false;
+//		Connection conn = getConnection();
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("INSERT INTO public.itemVenda ");
+		sql.append("	(valor, idvenda, idlivro) ");
+		sql.append("VALUES ");
+		sql.append("	(?, ?, ?) ");
+		
+		PreparedStatement stat = null;
+		
+		try {
+			stat = conn.prepareStatement(sql.toString());
+			
+			stat.setFloat(1, itemVenda.getValor());
+			stat.setInt(2, itemVenda.getVenda().getId());
+			stat.setInt(3, itemVenda.getLivro().getId());
+			stat.execute();
+			
+//			conn.commit();
+			
+			retorno = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			rollback(conn);
+		} finally {
+			closeStatement(stat);
+	//		closeConnection(conn);
 		}
 		return retorno;	
 		

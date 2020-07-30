@@ -37,6 +37,7 @@ public class ItemVendaDAO extends DAO<ItemVenda> {
 			
 			conn.commit();
 			
+			retorno = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			rollback(conn);
