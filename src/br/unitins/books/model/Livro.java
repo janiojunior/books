@@ -2,6 +2,7 @@ package br.unitins.books.model;
 
 public class Livro extends Entity<Livro> {
 
+	private static final long serialVersionUID = -2892635712370827148L;
 	private String descricao;
 	private String isbn;
 	private Float preco;

@@ -4,7 +4,7 @@ public enum TipoUsuario {
 	
 	NAO_DEFINIDO(0, "Selecione um tipo..."),
 	ADMINISTRADOR(1, "Adminstrador"), 
-	FUNCIONARIO(2, "Funcion√°rio"),
+	FUNCIONARIO(2, "Funcion·rio"),
 	CLIENTE(3, "Cliente");
 	
 	private int id;

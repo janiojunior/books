@@ -1,7 +1,5 @@
 package br.unitins.books.controller;
 
-import java.util.List;
-
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;

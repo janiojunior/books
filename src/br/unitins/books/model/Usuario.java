@@ -9,9 +9,11 @@ import javax.validation.constraints.Past;
 
 public class Usuario extends Entity<Usuario> {
 
+	private static final long serialVersionUID = 3107387025516112284L;
+
 	private String nome;
 	
-	@Past(message = "A data n√£o pode estar no futuro.")
+	@Past(message = "A data n„o pode estar no futuro.")
 	private LocalDate dataNascimento;
 	
 	@NotBlank(message = "O login deve ser informado.")
@@ -19,7 +21,7 @@ public class Usuario extends Entity<Usuario> {
 	
 	private String senha;
 	
-	@Email(message= "E-mail inv√°lido.")
+	@Email(message= "E-mail inv·lido.")
 	@NotEmpty(message = "O E-mail deve ser informado.")
 	private String email;
 	

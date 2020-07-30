@@ -1,7 +1,10 @@
 package br.unitins.books.model;
 
-public class Entity<T> implements Cloneable {
+import java.io.Serializable;
 
+public class Entity<T> implements Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1341089514126884651L;
 	private Integer id;
 	
 	public Integer getId() {
