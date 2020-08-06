@@ -1,0 +1,22 @@
+Funcionamento do sitema
+	- Login, 
+	- CRUD Usuario,
+	- Cadastro Simplificado do Usuario,
+	- CRUD Produto (específico de cada trabalho)
+		- Utilização da classe extra (conforme o modelo)
+	- Venda
+	- Carrinho
+	- Historico de vendas
+		- Detalhes da venda
+	- Segurança
+		- logar, deslogar, filter
+		- Senha criptografada
+	- Menu para diferentes usuários
+
+Validação dos campos
+Conversores
+Flash scope nos CRUDS
+Ajax 
+Inteface
+Uso do Framework desenvolvido em sala de aula.
+
